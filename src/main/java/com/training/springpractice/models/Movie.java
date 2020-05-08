@@ -1,11 +1,12 @@
 package com.training.springpractice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "movies")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Movie {
 
     @Id
@@ -16,6 +17,14 @@ public class Movie {
     private Integer year;
     private Integer rate;
     private Boolean deleted;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_catalog",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "id")
+    )
+    private List<Actor> actors;
 
     public Movie() {}
 
@@ -65,5 +74,13 @@ public class Movie {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

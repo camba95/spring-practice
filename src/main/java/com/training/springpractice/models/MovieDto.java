@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 public class MovieDto {
 
@@ -11,6 +12,7 @@ public class MovieDto {
     private String title;
     private Integer year;
     private Integer rate;
+    private List<Actor> actors;
 
     public MovieDto() {}
 
@@ -46,4 +48,11 @@ public class MovieDto {
         this.rate = rate;
     }
 
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 }

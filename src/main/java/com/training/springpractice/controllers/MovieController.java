@@ -18,4 +18,9 @@ public class MovieController {
     public List<MovieDerived> list() {
         return service.findAll();
     }
+
+    @PostMapping
+    public Movie create(@RequestBody Movie movie) {
+        return service.create(movie);
+    }
 }

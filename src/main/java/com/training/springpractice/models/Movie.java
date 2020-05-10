@@ -16,7 +16,7 @@ public class Movie {
     private String description;
     private Integer year;
     private Integer rate;
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @OneToMany
     @JoinTable(

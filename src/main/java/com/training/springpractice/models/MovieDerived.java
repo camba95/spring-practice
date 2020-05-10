@@ -5,17 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "movies")
+@Entity(name = "movie_derived")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Movie {
+public class MovieDerived {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String description;
     private Integer year;
     private Integer rate;
+    private Integer copies;
     private Boolean deleted;
 
     @OneToMany
@@ -26,7 +26,7 @@ public class Movie {
     )
     private List<Actor> actors;
 
-    public Movie() {}
+    public MovieDerived() {}
 
     public Long getId() {
         return id;
@@ -44,14 +44,6 @@ public class Movie {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Integer getYear() {
         return year;
     }
@@ -66,6 +58,14 @@ public class Movie {
 
     public void setRate(Integer rate) {
         this.rate = rate;
+    }
+
+    public Integer getCopies() {
+        return copies;
+    }
+
+    public void setCopies(Integer rate) {
+        this.copies = copies;
     }
 
     public Boolean getDeleted() {

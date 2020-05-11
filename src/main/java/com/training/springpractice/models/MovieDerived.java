@@ -22,9 +22,9 @@ public class MovieDerived {
 
     @OneToMany
     @JoinTable(
-            name = "movie_catalog",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+            name = "movies_actors",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     private List<Actor> actors;
 

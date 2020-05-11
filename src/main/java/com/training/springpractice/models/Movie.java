@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "movies")
@@ -28,17 +29,16 @@ public class Movie {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-//    @EnumValidator(enumClazz = RateType.class)
     private RateType rate;
     private Boolean deleted = false;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
-            name = "movie_catalog",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+            name = "movies_actors",
+            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id")
     )
-    private List<Actor> actors;
+    private List<Actor> actors = new ArrayList<>();
 
     public Movie() {}
 

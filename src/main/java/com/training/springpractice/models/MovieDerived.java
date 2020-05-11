@@ -3,44 +3,32 @@ package com.training.springpractice.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "movies")
+@Entity(name = "movie_derived")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Movie {
+public class MovieDerived {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Size(min = 50, max = 100)
     private String title;
-
-    @NotNull
-    @Size(min = 100, max = 200)
-    private String description;
-
-    @NotNull
     private Integer year;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private RateType rate;
-    private Boolean deleted = false;
+    private Integer copies;
+    private Boolean deleted;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinTable(
             name = "movies_actors",
-            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
-    private List<Actor> actors = new ArrayList<>();
+    private List<Actor> actors;
 
-    public Movie() {}
+    public MovieDerived() {}
 
     public Long getId() {
         return id;
@@ -58,14 +46,6 @@ public class Movie {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Integer getYear() {
         return year;
     }
@@ -80,6 +60,14 @@ public class Movie {
 
     public void setRate(RateType rate) {
         this.rate = rate;
+    }
+
+    public Integer getCopies() {
+        return copies;
+    }
+
+    public void setCopies(Integer rate) {
+        this.copies = copies;
     }
 
     public Boolean getDeleted() {

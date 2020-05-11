@@ -15,7 +15,7 @@ public class Actor {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "actors")
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Movie> movies;
 

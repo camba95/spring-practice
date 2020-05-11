@@ -3,6 +3,8 @@ package com.training.springpractice.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity(name = "movies")
@@ -12,10 +14,22 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(min = 50, max = 100)
     private String title;
+
+    @NotNull
+    @Size(min = 100, max = 200)
     private String description;
+
+    @NotNull
     private Integer year;
-    private Integer rate;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+//    @EnumValidator(enumClazz = RateType.class)
+    private RateType rate;
     private Boolean deleted = false;
 
     @OneToMany
@@ -60,11 +74,11 @@ public class Movie {
         this.year = year;
     }
 
-    public Integer getRate() {
+    public RateType getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(RateType rate) {
         this.rate = rate;
     }
 

@@ -14,7 +14,9 @@ public class MovieDerived {
     private Long id;
     private String title;
     private Integer year;
-    private Integer rate;
+
+    @Enumerated(EnumType.STRING)
+    private RateType rate;
     private Integer copies;
     private Boolean deleted;
 
@@ -52,11 +54,11 @@ public class MovieDerived {
         this.year = year;
     }
 
-    public Integer getRate() {
+    public RateType getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(RateType rate) {
         this.rate = rate;
     }
 

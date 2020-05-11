@@ -3,8 +3,10 @@ package com.training.springpractice.controllers;
 import com.training.springpractice.models.*;
 import com.training.springpractice.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,8 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie create(@RequestBody Movie movie) {
-        return service.create(movie);
+    public ResponseEntity<Movie> create(@Valid @RequestBody Movie movie) {
+        Movie createdMovie = service.create(movie);
+        return ResponseEntity.ok(movie);
     }
 }

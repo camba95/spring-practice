@@ -2,7 +2,6 @@ package com.training.springpractice.controllers;
 
 import com.training.springpractice.models.Catalog;
 import com.training.springpractice.models.CatalogBody;
-import com.training.springpractice.repositories.CatalogRepository;
 import com.training.springpractice.services.CatalogService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;

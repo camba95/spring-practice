@@ -1,6 +1,7 @@
 package com.training.springpractice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.training.springpractice.enums.RateType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

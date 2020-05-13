@@ -1,4 +1,4 @@
-package com.training.springpractice.models;
+package com.training.springpractice.enums;
 
 public enum RateType {
     G("G"),

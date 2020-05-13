@@ -113,4 +113,11 @@ public class Rental {
     public void setToReturnDate() {
         to_return_date = date.plusDays(daysToReturn);
     }
+
+    @PreUpdate
+    public void setReturnedDate() {
+        if (status == RentalStatus.RETURNED) {
+            returned_date = LocalDateTime.now();
+        }
+    }
 }

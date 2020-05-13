@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 public class RentalOnlyStatus {
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private RentalStatus status;

@@ -51,14 +51,18 @@ public class RentalService {
         throw new NotFoundException("Invalid information");
     }
 
+    @Transactional
     public RentalOnlyStatus updateStatus(Long id, RentalOnlyStatus status) {
-        if (status.getStatus() == RentalStatus.RETURNED) {
-            Rental rental = repository.getOne(id);
-            BeanUtils.copyProperties(status, rental);
-            Rental updated = repository.saveAndFlush(rental);
+        Optional<Rental> rental = repository.findById(id);
+        if (status.getStatus() == RentalStatus.RETURNED && rental.isPresent()) {
+            validateStatus(rental.get());
+            Rental found = rental.get();
+            BeanUtils.copyProperties(status, found);
+            Rental updated = repository.saveAndFlush(found);
+            catalogRepository.increaseCopies(rental.get().getMovie().getId());
             return mapper.map(updated, RentalOnlyStatus.class);
         }
-        throw new BadRequestException("Invalid status value");
+        throw new BadRequestException("Invalid information");
     }
 
     @Autowired
@@ -84,6 +88,12 @@ public class RentalService {
         Catalog catalog = catalogRepository.findByMovie(movie);
         if (catalog.getCopies() <= 0) {
             throw new BadRequestException("Movie not available");
+        }
+    }
+
+    private void validateStatus(Rental rental) {
+        if (rental.getStatus() != RentalStatus.RENTED) {
+            throw new BadRequestException("Invalid rental information");
         }
     }
 

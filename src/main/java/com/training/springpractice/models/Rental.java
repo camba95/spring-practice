@@ -2,6 +2,7 @@ package com.training.springpractice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.training.springpractice.enums.RentalStatus;
+import com.training.springpractice.enums.RentalStatusConverter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class Rental {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime returned_date;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = RentalStatusConverter.class)
     private RentalStatus status;
 
     public Rental() {}

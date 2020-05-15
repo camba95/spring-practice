@@ -6,11 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CatalogRepository extends JpaRepository<Catalog, Long> {
     @Modifying
     @Query("update movie_catalog mc set mc.copies = mc.copies - 1 where mc.movie.id = :movieId")
     void decreaseCopies(@Param("movieId") Long movieId);
+
+    @Modifying
+    @Query("update movie_catalog mc set mc.copies = mc.copies + 1 where mc.movie.id = :movieId")
+    void increaseCopies(@Param("movieId") Long movieId);
 
     Catalog findByMovie(Movie movie);
 }

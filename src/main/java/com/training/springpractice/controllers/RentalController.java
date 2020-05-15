@@ -2,13 +2,11 @@ package com.training.springpractice.controllers;
 
 import com.training.springpractice.errors.NotFoundException;
 import com.training.springpractice.models.RentalBody;
+import com.training.springpractice.models.RentalOnlyStatus;
 import com.training.springpractice.services.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,5 +25,12 @@ public class RentalController {
         } catch (NotFoundException e) {
             throw e;
         }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<RentalOnlyStatus> updateStatus(@PathVariable("id") Long id,
+                                                         @Valid @RequestBody RentalOnlyStatus status) {
+        RentalOnlyStatus response = service.updateStatus(id, status);
+        return ResponseEntity.ok(response);
     }
 }
